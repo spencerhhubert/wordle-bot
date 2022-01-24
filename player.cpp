@@ -129,7 +129,7 @@ int main() {
 		} else {
 			if (round == 1) {std::cout << message;}
 			std::cin >> params;
-			if (params == "11111") {
+			if (params == "22222") {
 				std::cout << "Dub!\n";
 				return 0;
 			}
