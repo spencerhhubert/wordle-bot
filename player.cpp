@@ -64,6 +64,10 @@ std::vector<std::string> trim_word_list(std::vector<std::string> words, std::str
 			if (params[j] == '1' && !contains_letter(word[j], words[i])) {
 				keep = false;
 			}
+			if (params[j] == '1' && word[j] == words[i][j]) {
+				// when letter is yellow, need to throw out all words where that index is not that letter
+				keep = false;
+			}
 			if (params[j] == '2' && word[j] != words[i][j]) {
 				keep = false;
 			}
@@ -112,6 +116,10 @@ int main() {
 		} else {
 			std::cout << message;
 			std::cin >> params;
+			if (params == "11111") {
+				std::cout << "Dub!\n";
+				return 0;
+			}
 			words = trim_word_list(words, cur_word, params);
 		}
 		letter_weights = weight_letters(words);
