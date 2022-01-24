@@ -35,7 +35,7 @@ std::vector<int> weight_letters(std::vector<std::string> words) {
 	// do weights for all the words
 	std::vector<int> output(26, 0);
 	for (int i=0; i<words.size(); i++) {
-		merge_vecs(count_letters(words[i]), output);
+		output = merge_vecs(count_letters(words[i]), output);
 	}
 	return output;
 }
@@ -56,19 +56,19 @@ std::vector<std::string> trim_word_list(std::vector<std::string> words, std::str
 	// params specify how those letters failed
 	std::vector<std::string> output;
 	for (int i=0; i<words.size(); i++) {
+		bool keep = true;
 		for (int j=0; j<word.size(); j++) {
 			if (params[j] == '0' && contains_letter(word[j], words[i])) {
-				break;
+				keep = false;
 			}
-			// this is fucked. this is totally wrong. this needs to exclude words where the letter in param spot is *not* 1 or 2
 			if (params[j] == '1' && !contains_letter(word[j], words[i])) {
-				break;
+				keep = false;
 			}
 			if (params[j] == '2' && word[j] != words[i][j]) {
-				break;
+				keep = false;
 			}
-			output.push_back(words[i]);
 		}
+		if (keep) {output.push_back(words[i]);}
 	}
 	return output;
 }
