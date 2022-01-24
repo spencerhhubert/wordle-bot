@@ -50,6 +50,13 @@ bool contains_letter(char letter, std::string word) {
 	return false;
 }
 
+int print_words(std::vector<std::string> words) {
+	for (int i=0; i<words.size(); i++) {
+		std::cout << words[i] << "\n";
+	}
+	return 0;
+}
+
 std::vector<std::string> trim_word_list(std::vector<std::string> words, std::string word, std::string params) {
 	// words is the list of words that needs to be trimmed
 	// word is the word the user tried in wordle that contains letters that failed
@@ -60,20 +67,26 @@ std::vector<std::string> trim_word_list(std::vector<std::string> words, std::str
 		for (int j=0; j<word.size(); j++) {
 			if (params[j] == '0' && contains_letter(word[j], words[i])) {
 				keep = false;
+				continue;
 			}
 			if (params[j] == '1' && !contains_letter(word[j], words[i])) {
 				keep = false;
+				continue;
 			}
 			if (params[j] == '1' && word[j] == words[i][j]) {
 				// when letter is yellow, need to throw out all words where that index is not that letter
 				keep = false;
+				continue;
 			}
 			if (params[j] == '2' && word[j] != words[i][j]) {
 				keep = false;
+				continue;
 			}
 		}
 		if (keep) {output.push_back(words[i]);}
 	}
+	std::cout << output.size() << " possible words\n";
+	if (output.size() <= 10) {print_words(output);}
 	return output;
 }
 
@@ -114,7 +127,7 @@ int main() {
 			std::cout << "That's embarrassing\n";
 			return 0;
 		} else {
-			std::cout << message;
+			if (round == 1) {std::cout << message;}
 			std::cin >> params;
 			if (params == "11111") {
 				std::cout << "Dub!\n";
@@ -124,7 +137,7 @@ int main() {
 		}
 		letter_weights = weight_letters(words);
 		cur_word = optimal_word(words, letter_weights);
-		std::cout << cur_word << "\n";
+		std::cout << "Prediction: " << cur_word << "\n";
 		round += 1;
 	}	
 }
