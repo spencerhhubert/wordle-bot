@@ -7,3 +7,5 @@ this has a somewhat flawed strategy I realize now. the program goes through the 
 This was it's first dub, I was actually quite impressed with it's discovery because to me this is a very obscure word:
 
 ![first wordle dub](https://raw.githubusercontent.com/spencerhhubert/wordle-bot/main/dub_example.png)
+
+you gotta compile it with `g++ -std=c++11 player.cpp`
